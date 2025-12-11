@@ -4,7 +4,7 @@ go项目常用代码以以及项目骨架
 
 ## install
 
-go install github.com/njfanxun/go-skeleton@latest
+go install github.com/AKAama/go-skeleton@latest
 
 ## usage
 

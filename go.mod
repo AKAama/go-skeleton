@@ -1,4 +1,4 @@
-module github.com/njfanxun/go-skeleton
+module github.com/AKAama/go-skeleton
 
 go 1.20
 
