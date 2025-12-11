@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/njfanxun/go-skeleton/config"
-	"github.com/njfanxun/go-skeleton/pkg/skeleton"
-	"github.com/njfanxun/go-skeleton/pkg/util"
+	"github.com/AKAama/go-skeleton/config"
+	"github.com/AKAama/go-skeleton/pkg/skeleton"
+	"github.com/AKAama/go-skeleton/pkg/util"
 	"github.com/pterm/pterm"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"

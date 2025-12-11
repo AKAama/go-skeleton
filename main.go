@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/njfanxun/go-skeleton/cmd"
+	"github.com/AKAama/go-skeleton/cmd"
 	"github.com/pterm/pterm"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

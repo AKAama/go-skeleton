@@ -3,7 +3,6 @@ module github.com/AKAama/go-skeleton
 go 1.20
 
 require (
-	github.com/njfanxun/go-skeleton v0.0.0-20230807025228-7a88d83e44dd
 	github.com/pkg/errors v0.9.1
 	github.com/pterm/pterm v0.12.63
 	github.com/samber/lo v1.38.1

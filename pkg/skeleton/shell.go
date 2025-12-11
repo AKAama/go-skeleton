@@ -4,8 +4,8 @@ import (
 	"os/exec"
 	"path"
 
-	"github.com/njfanxun/go-skeleton/config"
-	"github.com/njfanxun/go-skeleton/pkg/util"
+	"github.com/AKAama/go-skeleton/config"
+	"github.com/AKAama/go-skeleton/pkg/util"
 )
 
 // ShellGo 检查是否可执行go命令

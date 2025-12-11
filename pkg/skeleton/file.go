@@ -4,9 +4,9 @@ import (
 	"os"
 	"path"
 
-	"github.com/njfanxun/go-skeleton/config"
-	"github.com/njfanxun/go-skeleton/pkg/tpl"
-	"github.com/njfanxun/go-skeleton/pkg/util"
+	"github.com/AKAama/go-skeleton/config"
+	"github.com/AKAama/go-skeleton/pkg/tpl"
+	"github.com/AKAama/go-skeleton/pkg/util"
 )
 
 func GoMainFile(cfg *config.ProjectConfig) error {
