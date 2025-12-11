@@ -3,6 +3,7 @@ module github.com/AKAama/go-skeleton
 go 1.20
 
 require (
+	github.com/njfanxun/go-skeleton v0.0.0-20230807025228-7a88d83e44dd
 	github.com/pkg/errors v0.9.1
 	github.com/pterm/pterm v0.12.63
 	github.com/samber/lo v1.38.1
@@ -10,7 +11,6 @@ require (
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
 	go.uber.org/zap v1.24.0
-	golang.org/x/mod v0.8.0
 )
 
 require (
