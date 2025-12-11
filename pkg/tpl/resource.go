@@ -41,5 +41,8 @@ var Makefile embed.FS
 //go:embed dockerfile.tmpl
 var Dockerfile embed.FS
 
+//go:embed config.yaml.tmpl
+var ConfigYaml embed.FS
+
 //go:embed dockerfile.tmpl
 var GitIgnore []byte

@@ -90,6 +90,10 @@ func run() {
 		pterm.Error.Printfln("创建 global_config.go 错误:%s", err.Error())
 		return
 	}
+	if err := skeleton.GoConfigYamlFile(cfg); err != nil {
+		pterm.Error.Printfln("创建 config.yaml 错误:%s", err.Error())
+		return
+	}
 	if _, ok := cfg.Modules["gorm"]; ok {
 		if err := skeleton.GoDBConfigFile(cfg); err != nil {
 			pterm.Error.Printfln("创建 db_config.go 错误:%s", err.Error())

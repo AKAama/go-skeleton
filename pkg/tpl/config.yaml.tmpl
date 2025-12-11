@@ -1,0 +1,13 @@
+{{- if (index .Modules "gin")}}
+port: 3000
+{{- end}}
+{{- if (index .Modules "gorm")}}
+db:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: Sudy.web123
+  database: cmplus_qa
+  maxConnections: 100
+{{- end}}
+

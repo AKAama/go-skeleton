@@ -49,6 +49,17 @@ func GoGlobalConfigFile(cfg *config.ProjectConfig) error {
 	}
 	return os.WriteFile(path.Join(cfg.ProjectDir, "config", "global_config.go"), buf.Bytes(), os.ModePerm)
 }
+
+func GoConfigYamlFile(cfg *config.ProjectConfig) error {
+	if err := util.MKDir(path.Join(cfg.ProjectDir, "etc")); err != nil {
+		return err
+	}
+	buf, err := util.TemplateParseFS(tpl.ConfigYaml, cfg, "config.yaml.tmpl")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path.Join(cfg.ProjectDir, "etc", "config.yaml"), buf.Bytes(), os.ModePerm)
+}
 func GoDBConfigFile(cfg *config.ProjectConfig) error {
 	if err := util.MKDir(path.Join(cfg.ProjectDir, "config")); err != nil {
 		return err
