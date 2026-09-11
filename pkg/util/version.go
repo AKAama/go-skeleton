@@ -3,12 +3,13 @@ package util
 import (
 	"fmt"
 	"runtime"
+	"runtime/debug"
 )
 
 var (
 	version      = "0.0.0"                // value from VERSION file
 	buildDate    = "1970-01-01T00:00:00Z" // output from `date -u +'%Y-%m-%dT%H:%M:%SZ'`
-	gitCommit    = "internal"             // output from `git rev-parse HEAD`
+	gitCommit    = ""                     // output from `git rev-parse HEAD`
 	gitTag       = ""                     // output from `git describe --exact-match --tags HEAD` (if clean tree state)
 	gitTreeState = ""                     // determined from `git status --porcelain`. either 'clean' or 'dirty'
 )
@@ -26,15 +27,25 @@ type Version struct {
 
 // GetVersion returns the version information
 func GetVersion() Version {
-	var versionStr string
+	versionStr := version
 	if gitCommit != "" && gitTag != "" && gitTreeState == "clean" {
 		// if we have a clean tree state and the current commit is tagged,
 		// this is an official release.
 		versionStr = gitTag
+	} else if version == "0.0.0" {
+		if info, ok := debug.ReadBuildInfo(); ok && info.Main.Version != "" && info.Main.Version != "(devel)" {
+			versionStr = info.Main.Version
+		} else if len(gitCommit) >= 7 {
+			versionStr += "+" + gitCommit[0:7]
+			if gitTreeState != "clean" {
+				versionStr += ".dirty"
+			}
+		} else {
+			versionStr += "+unknown"
+		}
 	} else {
 		// otherwise formulate a version string based on as much metadata
 		// information we have available.
-		versionStr = version
 		if len(gitCommit) >= 7 {
 			versionStr += "+" + gitCommit[0:7]
 			if gitTreeState != "clean" {
