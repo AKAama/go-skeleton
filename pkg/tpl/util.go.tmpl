@@ -11,8 +11,8 @@ func IsValidPort[T int | int32 | uint | uint32 | uint64 | int64 | string](port T
         return errors.Wrap(err,"端口转换错误")
     }
 
-    if p >= 0 && p < 65535 {
+    if p > 0 && p <= 65535 {
         return nil
     }
-    return errors.Errorf("%d不是一个合格的[0-65535]端口", p)
+    return errors.Errorf("%d不是一个合格的[1-65535]端口", p)
 }

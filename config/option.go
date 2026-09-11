@@ -26,9 +26,7 @@ func WithProjectDir(dir string) ConfigOption {
 func WithOutModules(modules ...string) ConfigOption {
 	return configOptionFunc(func(cfg *ProjectConfig) *ProjectConfig {
 		for _, module := range modules {
-			if _, ok := cfg.Modules[module]; ok {
-				delete(cfg.Modules, module)
-			}
+			delete(cfg.Modules, module)
 		}
 		return cfg
 	})

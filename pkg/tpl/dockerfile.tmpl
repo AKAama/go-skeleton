@@ -1,10 +1,18 @@
-FROM --platform=amd64 alpine:3.14
+FROM golang:1.20-alpine AS builder
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/{{ .ProjectName}} .
 
-MAINTAINER fanxun <67831061@qq.com>
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-RUN apk add -U tzdata \
-    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-COPY bin/"your app" /app/
-COPY etc /app/etc
+FROM alpine:3.20
+RUN apk add --no-cache ca-certificates tzdata \
+    && addgroup -S app \
+    && adduser -S -G app app
 WORKDIR /app
-CMD ["./your app","-c","etc/config.yaml"]
+COPY --from=builder /out/{{ .ProjectName}} ./{{ .ProjectName}}
+COPY etc ./etc
+USER app
+EXPOSE 3000
+ENTRYPOINT ["./{{ .ProjectName}}"]
+CMD ["--config", "etc/config.yaml"]

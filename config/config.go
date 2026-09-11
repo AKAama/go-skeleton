@@ -25,8 +25,12 @@ type ProjectConfig struct {
 }
 
 func NewProjectConfig(opts ...ConfigOption) *ProjectConfig {
+	modules := make(map[string]string, len(DefaultModules))
+	for name, module := range DefaultModules {
+		modules[name] = module
+	}
 	cfg := &ProjectConfig{
-		Modules: DefaultModules,
+		Modules: modules,
 	}
 	for _, opt := range opts {
 		opt.apply(cfg)

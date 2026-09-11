@@ -2,8 +2,10 @@ package util
 
 import (
 	"bytes"
+	"go/format"
 	"io/fs"
 	"os"
+	"strings"
 	"text/template"
 
 	"github.com/pkg/errors"
@@ -42,6 +44,14 @@ func TemplateParseFS(fss fs.FS, data any, patterns ...string) (*bytes.Buffer, er
 	err = t.Execute(&buf, data)
 	if err != nil {
 		return nil, errors.Wrap(err, "模版文件执行错误")
+	}
+	if len(patterns) == 1 && strings.HasSuffix(patterns[0], ".go.tmpl") {
+		formatted, err := format.Source(buf.Bytes())
+		if err != nil {
+			return nil, errors.Wrapf(err, "格式化生成的 Go 文件 %s", patterns[0])
+		}
+		buf.Reset()
+		_, _ = buf.Write(formatted)
 	}
 	return &buf, nil
 }

@@ -2,7 +2,6 @@ package tpl
 
 import (
 	"embed"
-	_ "embed"
 )
 
 //go:embed main.go.tmpl
@@ -44,5 +43,5 @@ var Dockerfile embed.FS
 //go:embed config.yaml.tmpl
 var ConfigYaml embed.FS
 
-//go:embed dockerfile.tmpl
+//go:embed gitignore.tmpl
 var GitIgnore []byte

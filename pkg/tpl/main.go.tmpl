@@ -1,14 +1,20 @@
 package main
 
 import (
+    "fmt"
     "os"
+{{- if (index .Modules "zap")}}
     "time"
+{{- end}}
 
     "{{ .ModulePath}}/cmd"
 
+{{- if (index .Modules "zap")}}
     "go.uber.org/zap"
     "go.uber.org/zap/zapcore"
+{{- end}}
 )
+
 {{- if (index .Modules "zap")}}
 func initZapLog() *zap.Logger {
     config := zap.NewProductionConfig()
@@ -17,20 +23,22 @@ func initZapLog() *zap.Logger {
     config.EncoderConfig.EncodeTime = zapcore.TimeEncoderOfLayout(time.DateTime + ".000")
     config.Encoding = "console"
     config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
-    logger, _ := config.Build()
+    logger, err := config.Build()
+    if err != nil {
+        panic(err)
+    }
     return logger
 }
-{{- end }}
+{{- end}}
+
 func main() {
-    {{- if (index .Modules "zap")}}
+{{- if (index .Modules "zap")}}
     logger := initZapLog()
     zap.ReplaceGlobals(logger)
-    defer func(logger *zap.Logger) {
-        _ = logger.Sync()
-    }(logger)
-    {{- end}}
-    command := cmd.NewRootCommand()
-    if err := command.Execute(); err != nil {
+    defer func() { _ = logger.Sync() }()
+{{- end}}
+    if err := cmd.NewRootCommand().Execute(); err != nil {
+        _, _ = fmt.Fprintln(os.Stderr, err)
         os.Exit(1)
     }
 }

@@ -5,9 +5,10 @@ import (
     "path/filepath"
     "strings"
 
+{{- if (index .Modules "gin")}}
     "{{ .ModulePath}}/pkg/util"
+{{- end}}
 
-    "github.com/mitchellh/mapstructure"
     "github.com/pkg/errors"
     "github.com/spf13/viper"
 )

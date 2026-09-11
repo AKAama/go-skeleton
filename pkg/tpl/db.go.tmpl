@@ -35,11 +35,6 @@ func InitTiDB(cfg *config.GlobalConfig) error {
         if err != nil {
             return
         }
-
-        if err != nil {
-            return
-        }
-
         if err = initTiDB(cfg.DBConfig.MaxConnections); err != nil {
             return
         }
